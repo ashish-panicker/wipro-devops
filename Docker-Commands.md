@@ -244,3 +244,74 @@ A docker network is layer that defines how a docker container communicates:
     # Use the --network switch
     docker run -d --name <my_container> --network <my_network> nginx
 ```
+
+### Docker networking example with:
+
+1. MySQL server container
+2. phpMyAdmin (a web-based MySQL client)
+3. A user-defined bridge network so they can talk to each other by name
+
+**Step 1: Create a user defined bridge network**
+```bash
+    docker network create mysql_net
+```
+
+**Step 2: Run the mysql container**
+```bash
+    # Lokout for the --network switch
+    docker run -d \
+    --name mysql-server \
+    --network mysql_net \
+    -e MYSQL_ROOT_PASSWORD=secret123 \
+    -e MYSQL_DATABASE=mydb \
+    -e MYSQL_USER=myuser \
+    -e MYSQL_PASSWORD=mypassword \
+    mysql:latest
+
+    # Windows
+    docker run ^
+    --name mysql-server ^
+    --network mysql_net ^
+    -e MYSQL_ROOT_PASSWORD=secret123 ^
+    -e MYSQL_DATABASE=mydb ^
+    -e MYSQL_USER=myuser ^
+    -e MYSQL_PASSWORD=mypassword ^
+    -d mysql:latest
+
+```
+
+**Step 3: Run the phpMyAdmin container**
+```bash
+    docker run -d \
+    --name myadmin \
+    --network mysql_net \
+    -e PMA_HOST=mysql-server \
+    -p 8080:80 \
+    phpmyadmin/phpmyadmin
+
+    # Windows
+    docker run ^
+    --name myadmin ^
+    --network mysql_net ^
+    -e PMA_HOST=mysql-server ^
+    -p 8080:80 ^
+    -d phpmyadmin/phpmyadmin
+
+```
+**Explanation:**
+
+```
+--name myadmin → Name of phpMyAdmin container.
+--network mysql_net → Same network as MySQL, so they can communicate.
+-e PMA_HOST=mysql-server → Hostname of MySQL server (container name).
+-p 8080:80 → Maps port 8080 on host to port 80 in phpMyAdmin.
+phpmyadmin/phpmyadmin → Official phpMyAdmin image
+```
+
+**Step 4: Access phpMyAdmin in Browser**
+```
+    URL: http://localhost:8080
+    Server: mysql-server
+    Username: myuser
+    Password: mypassword
+```
