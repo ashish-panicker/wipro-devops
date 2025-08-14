@@ -315,3 +315,107 @@ phpmyadmin/phpmyadmin → Official phpMyAdmin image
     Username: myuser
     Password: mypassword
 ```
+
+## Docker Volumes
+
+Volumes are persistent storage mechanisms for docker containers. When a container is removed the data is permenantly lost, 
+where as with volumes data can be stored outside the container file system and it will survive even if container is removed.
+
+### Why use volumes?
+
+1. **Persistence** Data survives container deletions and failures
+2. **Sharing** Data can be shared among containers
+3. **Performance** Optimized for docker data storage
+4. **Separation** Keeps data and application seperate
+
+### Types of volumes
+
+1. **Named Volumes** - Created manually
+2. **Anonymous Volumes** - Created automatically when needed
+3. **Bind Mounts** - Map a specific host folder to a container
+
+### Important Commands
+
+>Create volumes
+```bash
+    docker volume create <vol_name>
+```
+
+>List volumes
+```bash
+    docker volume ls
+```
+
+>Inspect volumes
+```bash
+    docker volume inspect <vol_name>
+```
+
+>Remove volumes
+```bash
+    docker volume rm <vol_name>
+```
+
+### Docker volume and networking demo
+
+**Step 1: Create volume**
+```bash
+   docker volume create mysql_data
+```
+
+**Step 2: Run the mysql container**
+```bash
+    # Lokout for the --network and -v switch
+    # mysql_data is the named volume
+    # /var/lib/mysql is where MySQL stores its data inside the container.
+    docker run -d \
+    --name mysql-server \
+    --network mysql_net \
+    -v mysql_data:/var/lib/mysql \
+    -e MYSQL_ROOT_PASSWORD=secret123 \
+    -e MYSQL_DATABASE=mydb \
+    -e MYSQL_USER=myuser \
+    -e MYSQL_PASSWORD=mypassword \
+    mysql:latest
+
+    # Windows
+    docker run ^
+    --name mysql-server ^
+    --network mysql_net ^
+    -v mysql_data:/var/lib/mysql ^
+    -e MYSQL_ROOT_PASSWORD=secret123 ^
+    -e MYSQL_DATABASE=mydb ^
+    -e MYSQL_USER=myuser ^
+    -e MYSQL_PASSWORD=mypassword ^
+    -d mysql:latest
+
+```
+
+**Step 3: Run the phpMyAdmin container**
+```bash
+    docker run -d \
+    --name myadmin \
+    --network mysql_net \
+    -e PMA_HOST=mysql-server \
+    -p 8080:80 \
+    phpmyadmin/phpmyadmin
+
+    # Windows
+    docker run ^
+    --name myadmin ^
+    --network mysql_net ^
+    -e PMA_HOST=mysql-server ^
+    -p 8080:80 ^
+    -d phpmyadmin/phpmyadmin
+
+```
+
+```sql
+CREATE TABLE `mydb`.`my_users` 
+(
+    `id` INT NOT NULL AUTO_INCREMENT , 
+    `user_name` VARCHAR(150) NOT NULL , 
+    PRIMARY KEY (`id`), 
+    UNIQUE `idx_user_name` (`user_name`)
+) ENGINE = InnoDB;
+```
