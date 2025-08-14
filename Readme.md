@@ -51,7 +51,7 @@ Devops breaks these barriers by enforcing a shared responsibility and continous 
 * **Learning-focused** — failure is seen as an opportunity to improve
 * **Transparency** — open sharing of data, progress, and metrics
 
-### **3. Key Concepts in DevOps and Its Importance in Software Development**
+## **3. Key Concepts in DevOps and Its Importance in Software Development**
 
 #### **3.1 Key Concepts**
 
@@ -81,7 +81,7 @@ Devops breaks these barriers by enforcing a shared responsibility and continous 
 * **Resilience** — failures can be detected and fixed quickly.
 * **Cost Efficiency** — automation reduces manual effort.
 
-### **4. Lifecycle of DevOps and the Importance of Automation**
+## **4. Lifecycle of DevOps and the Importance of Automation**
 
 #### **4.1 DevOps Lifecycle Stages**
 
@@ -145,7 +145,7 @@ Automation spans:
 
 ---
 
-### **5. References**
+## **5. References**
 
 1. Humble, J., & Farley, D. (2010). *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation*. Addison-Wesley.
 2. Kim, G., Humble, J., Debois, P., & Willis, J. (2016). *The DevOps Handbook*. IT Revolution Press.
@@ -153,3 +153,33 @@ Automation spans:
 4. Atlassian. *What is DevOps?* – [https://www.atlassian.com/devops](https://www.atlassian.com/devops)
 5. Microsoft Azure Docs – *DevOps Lifecycle* – [https://learn.microsoft.com/en-us/devops](https://learn.microsoft.com/en-us/devops)
 6. AWS DevOps Blog – [https://aws.amazon.com/devops/](https://aws.amazon.com/devops/)
+
+
+## **6. CI/CD **
+
+Aims at providing small frequent updates in short time spans to the user rather than one large update over a period of time.
+
+### ** 6.1 Definitions **
+
+**Continous Integration**: Practice where developers frequently integrate the changes into a shared repository, triggering automated build and test phases.
+
+**Continous Delivery**: Practice of ensuring that the application is always in a deployable state.
+
+**Continous Integration**: Practice where changes that clear the screening criterias are directly deployed to production without any manual intervention.
+
+### **6.2 Why use CI/CD **
+
+**Detect bugs early**
+**Reduce integration issues**
+**Faster App delivery**
+**Better Code quality**
+**Frequent Releases**
+
+## **7. CI/CD Pipeline **
+
+CI/CD pipeline is an automated series of steps that:
+
+- Integrate the code changes
+- Build the application
+- Test for quality
+- Deploy it to the desired environment
