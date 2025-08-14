@@ -1,0 +1,10 @@
+version: '3.9'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "9000:80"
+  cache:
+    image: redis:latest
+    ports:
+      - "6379:6379"
