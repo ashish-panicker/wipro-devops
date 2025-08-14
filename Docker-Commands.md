@@ -151,3 +151,50 @@ Docker Image.
     docker image prune
 ```
 
+### Explaining the `docker run command`
+
+We will be using the `mysql:latest` image.
+
+```bash
+    # in linux and mac
+    docker run \
+    --name mysql-server \
+    -e MYSQL_ROOT_PASSWORD=secret123 \
+    -e MYSQL_DATABASE=mydb \
+    -e MYSQL_USER=myuser \
+    -e MYSQL_PASSWORD=mypassword \
+    -p 3121:3306 \
+    -d mysql:latest
+
+    # In windows command prompt
+    docker run ^
+    --name mysql-server ^
+    -e MYSQL_ROOT_PASSWORD=secret123 ^
+    -e MYSQL_DATABASE=mydb ^
+    -e MYSQL_USER=myuser ^
+    -e MYSQL_PASSWORD=mypassword ^
+    -p 3121:3306 ^
+    -d mysql:8.0
+
+    # In powershell
+    docker run `
+    --name mysql-server `
+    -e MYSQL_ROOT_PASSWORD=secret123 `
+    -e MYSQL_DATABASE=mydb `
+    -e MYSQL_USER=myuser `
+    -e MYSQL_PASSWORD=mypassword `
+    -p 3121:3306 `
+    -d mysql:8.0
+```
+
+| Flag / Attribute                   | Purpose                                                                                           |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `docker run`                       | Start a new container from an image.                                                              |
+| `--name mysql-server`              | Gives the container a custom name (instead of random one).                                        |
+| `-e MYSQL_ROOT_PASSWORD=secret123` | Sets the root password (mandatory for MySQL unless using volume with pre-configured credentials). |
+| `-e MYSQL_DATABASE=mydb`           | Creates a new database automatically on first run.                                                |
+| `-e MYSQL_USER=myuser`             | Creates an additional user (optional).                                                            |
+| `-e MYSQL_PASSWORD=mypassword`     | Sets the password for the above user.                                                             |
+| `-p 3121:3306`                   | Maps container's MySQL port (3306) to host’s port 3121.                                           |
+| `-d`                               | Run in detached (background) mode.                                                                |
+| `mysql:8.0`                        | The image name and tag (version). `mysql` defaults to latest if no tag given.                     |
