@@ -18,8 +18,6 @@ A container is an isolated environment where an application can be executed. Con
 and contains the dependencies needed by the application for it's execution. Container is a instance of a
 Docker Image.
 
-## Basic Docker Commands
-
 ### Image Management
 
 > Pull an image
@@ -195,6 +193,54 @@ We will be using the `mysql:latest` image.
 | `-e MYSQL_DATABASE=mydb`           | Creates a new database automatically on first run.                                                |
 | `-e MYSQL_USER=myuser`             | Creates an additional user (optional).                                                            |
 | `-e MYSQL_PASSWORD=mypassword`     | Sets the password for the above user.                                                             |
-| `-p 3121:3306`                   | Maps container's MySQL port (3306) to host’s port 3121.                                           |
+| `-p 3121:3306`                     | Maps container's MySQL port (3306) to host’s port 3121.                                           |
 | `-d`                               | Run in detached (background) mode.                                                                |
 | `mysql:8.0`                        | The image name and tag (version). `mysql` defaults to latest if no tag given.                     |
+
+## Docker Network
+
+### What is it?
+
+A docker network is layer that defines how a docker container communicates:
+- With each other
+- With the host machine
+- With the internet
+
+### Types of network
+
+| Network Type           | Scope                                         | When to Use                                                                                 | Example                          |
+| ---------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------- |
+| **bridge** *(default)* | Local to the Docker host                      | When containers need to talk to each other on the same host, isolated from external systems | Web app ↔ DB on the same machine |
+| **host**               | Shares the host’s network stack               | When you want containers to use the host’s IP and ports directly                            | Performance-sensitive apps       |
+| **none**               | No networking                                 | When you want total network isolation                                                       | Secure batch jobs                |
+| **overlay**            | Across multiple Docker hosts (Swarm mode)     | For multi-host communication                                                                | Distributed microservices        |
+| **macvlan**            | Gives containers their own MAC address on LAN | When containers should appear as physical devices on the network                            | Legacy systems needing real IPs  |
+
+### Important commands
+
+> Create a network
+```bash
+    docker network create <network_name>
+```
+
+> Inspect a network
+```bash
+    docker network inspect bridge
+```
+
+> List networks
+```bash
+    docker network ls
+```
+
+> Connect a existing container to the network
+```bash
+    docker network connect <my_network> <my_container>
+```
+
+> Run a container with a specific network
+```bash
+    # Assuming the network is already created
+    # Use the --network switch
+    docker run -d --name <my_container> --network <my_network> nginx
+```
