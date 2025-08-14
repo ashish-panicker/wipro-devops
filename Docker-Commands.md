@@ -174,7 +174,7 @@ We will be using the `mysql:latest` image.
     -e MYSQL_USER=myuser ^
     -e MYSQL_PASSWORD=mypassword ^
     -p 3121:3306 ^
-    -d mysql:8.0
+    -d mysql:latest
 
     # In powershell
     docker run `
@@ -184,7 +184,7 @@ We will be using the `mysql:latest` image.
     -e MYSQL_USER=myuser `
     -e MYSQL_PASSWORD=mypassword `
     -p 3121:3306 `
-    -d mysql:8.0
+    -d mysql:latest
 ```
 
 | Flag / Attribute                   | Purpose                                                                                           |
