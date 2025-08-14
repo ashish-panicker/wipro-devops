@@ -137,3 +137,50 @@ volumes:
 ### Demo 4
 
 `Mysql + phpMyAdmin` with volumes and networks and `.env` files.
+
+```plaintext
+MYSQL_ROOT_PASSWORD=secret123
+MYSQL_DATABASE=mydb
+MYSQL_USER=myuser
+MYSQL_PASSWORD=mypassword
+
+MYSQL_PORT=3306
+PMA_HOST=mysql
+PMA_USER=myuser
+PMA_PASSWORD=mypassword
+```
+
+```yaml
+version: '3.9'
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mysql_net
+  phpadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: ${PMA_HOST}
+      PMA_USER: ${PMA_USER}
+      PMA_PASSWORD: ${PMA_PASSWORD}
+    ports:
+      - "8080:80"
+    networks:
+      - mysql_net
+networks:
+    mysql_net:
+volumes:
+    mysql_data:
+```
