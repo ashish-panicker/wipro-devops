@@ -121,7 +121,7 @@ Docker Image.
 > Inspect a container
 
 ```bash
-    docerk inspect <container_id>
+    docker inspect <container_id>
 ```
 
 > Docker stats
