@@ -184,3 +184,28 @@ networks:
 volumes:
     mysql_data:
 ```
+
+### Service vs Container
+
+#### Service
+
+A service is:
+- A higher-level definition of how to run one or more containers.
+- Defined inside a docker-compose.yml (or in Docker Swarm).
+- Can be scaled (multiple containers for the same service).
+- Managed with docker compose or docker service commands.
+
+#### Container
+
+A container is:
+- A running instance of a Docker image.
+- Lives only as long as you keep it running (unless restarted).
+- Managed directly with docker run, docker stop, docker rm.
+
+| Feature         | Service                                                     | Container                                    |
+| --------------- | ----------------------------------------------------------- | -------------------------------------------- |
+| **Definition**  | Describes how containers should run (in YAML or Swarm)      | Running instance of an image                 |
+| **Scaling**     | Can easily scale to many containers                         | One container at a time                      |
+| **Management**  | `docker compose`, `docker service`                          | `docker run`, `docker stop`                  |
+| **Networking**  | Auto-networking between services                            | Must manually connect containers             |
+| **Persistence** | Service definition can recreate containers with same config | If removed, must rerun with options manually |
