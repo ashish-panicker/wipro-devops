@@ -69,6 +69,10 @@ kubectl expose deployment nginx --type=NodePort --port=80 --target-port=80
 kubectl get svc
 
 kubectl get svc <service-name>
+
+# Using Loadblancer
+# Browse to http://localhost:8888 to test
+kubectl expose deployment nginx --type=LoadBalancer --name=nginx-lb --port=8888 --target-port=80
 ```
 
 **Rolling Update**
@@ -76,4 +80,24 @@ kubectl get svc <service-name>
 ```bash
 # Simulate an image change
 kubectl set image deployment/nginx nginx=nginx:1.29.1
+```
+
+**Clean up**
+
+```bash
+# To delete a service
+kubectl delete service nginx
+
+# To delete a deployment
+kubectl delete deployment nginx
+
+# To delete all
+kubectl delete deployments --all
+kubectl delete services --all
+```
+
+**Deploying from yaml files**
+
+```bash
+kubectl apply -f <path-to-file.yaml>
 ```
