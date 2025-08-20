@@ -83,7 +83,7 @@ Node/machine/server on which the pipeline executes.
 1. Install `SonarQuebeScanner` and `Sonar Quality Gate` plugins in Jenkins.
 2. Create a [Sonar Cloud Account](https://sonarcloud.io)
 3. Generate a security token in [Sonar](https://sonarcloud.io/account/security)
-4. Navigate to Jenkins -> Manage -> System -> Sonar Cloud Installations
+4. Navigate to `Jenkins` -> `Manage` -> `System` -> `Sonar Cloud Installations`
    1. Name as `Sonar Cloud`
    2. Server URL as `https://sonarcloud.io`
    3. Create a new server authentication token by clicking `Add` -> `Jenkins` -> `Secret Text`
