@@ -116,3 +116,31 @@ helm uninstall my-nginx
 * **Chart** = recipe book for an app
 * **Release** = dish you prepared from that recipe
 * **Repository** = library of recipe books
+
+---
+
+### Sample mini-chart
+
+**Create a chart**
+
+```bash
+helm create mini-api
+```
+
+**Installing the chart**
+
+```bash
+helm install demo ./mini-api
+```
+
+**Verify**
+
+```bash
+helm list
+```
+
+**Uninstall**
+
+```bash
+helm uninstall demo
+```
