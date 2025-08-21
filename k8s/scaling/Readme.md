@@ -65,4 +65,20 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 
 # Enable HPA
 kubectl autoscale deployment webapp --cpu-percent=50 --min=2 --max=10
+
+# Verify
+kubectl top nodes
+kubectl top pods
 ```
+
+### Challenge
+
+1. Create a Deployment `webapp` with 2 replicas
+2. Deploy Metrics Server
+3. Apply HPA target of CPU=50, Min=2, Max=10
+4. Generate a sample load
+5. Observe pod scaling
+   ```bash 
+   kubectl get hpa -w
+   kubectl get pods -w
+   ```
