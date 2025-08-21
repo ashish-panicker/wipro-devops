@@ -44,3 +44,31 @@ Docker can be used in the `Build` and `Test` phases while k8s helps in the `Depl
 - **Service** - exposes the pods both internally and externally
 - **CongfigMaps/Secrets** - stores the secrets
 - **Ingres** - Exposes Servcies via http/https
+
+## Key componenets
+
+- **etcd** - The database, a distributed, consistent key value pair database. Stores all configuration.
+- **kube-apiserver API Server** - Entry point into k8s control plane. Exposes api via http/https.
+- **kube-schduler** - Assigns pods to nodes based on the reource availability.
+- **kube-controller-manager** - A set of controllers running in the control plane. Ensure the desired state of deployments
+  - Node controller, tracks node health
+  - Deployment controller, tracks replica sets
+  - HPA Controller, tracks scaling
+- **Kubelet** - Node agent which runs on every node
+- **kube-proxy** - Runs on every node, manages the networking rules
+- **kubectl** - CLI client tool
+
+## StatefulSet
+
+A k8s controller responsible for deploying and managing stateful applications. Unlike deployments, which are stateless, 
+Statufulset ensures that every pod has:
+- Stable unique networking identities
+- Persistent storage, each pod has it's own `PersistentVolumeClaim`, so the data will survie pod recreation
+- Ordered Deployment & Scaling, pods are created one at a time
+- Ordered termination & rolling updates
+
+### Usecases
+
+- Run databases
+- Distributed systems
+- Any application that needs persistent storage and ordered deployment
